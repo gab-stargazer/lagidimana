@@ -1,15 +1,60 @@
 [versions]
 agp = "8.5.2"
-kotlin = "1.9.0"
-coreKtx = "1.10.1"
+kotlin = "2.0.10"
+coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.8.0"
-composeBom = "2024.04.01"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.4"
+activityCompose = "1.9.1"
+composeBom = "2024.06.00"
+compose-navigation = "2.7.7"
+compose-maps = "6.1.0"
+kotlin-ksp = "2.0.10-1.0.24"
+koin-bom = "4.0.0-RC1"
+paging = "3.3.2"
+room = "2.6.1"
 
 [libraries]
+#   Accompanist
+accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version = "0.35.1-alpha" }
+
+#   Compose
+compose-maps = { module = "com.google.maps.android:maps-compose", version.ref = "compose-maps" }
+compose-maps-util = { module = "com.google.maps.android:maps-compose-utils", version.ref = "compose-maps" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+compose-paging = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+
+#   Google
+google-maps = { module = "com.google.android.gms:play-services-maps", version = "19.0.0" }
+
+#   Koin
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-work-manager = { module = "io.insert-koin:koin-androidx-workmanager" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin-logger = { module = "io.insert-koin:koin-logger-slf4j" }
+koin-test = { module = "io.insert-koin:koin-test" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
+
+#   Kotlin
+kotlin-serializable = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
+
+#   Paging
+paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+paging-test = { module = "androidx.paging:paging-common", version.ref = "paging" }
+
+#   Gplay
+play-gms = { module = "com.google.android.gms:play-services", version = "12.0.1" }
+play-gms-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
+
+#   Room
+room = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -28,4 +73,12 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+#   Google
+google-secret = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
+
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+kotlin-serializable = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.10" }
+room = { id = "androidx.room", version.ref = "room" }
 
