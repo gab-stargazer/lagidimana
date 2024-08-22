@@ -33,10 +33,10 @@ fun Context.checkLocationPermission(): Boolean {
     return ActivityCompat.checkSelfPermission(
         this,
         Manifest.permission.ACCESS_FINE_LOCATION
-    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+    ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
         this,
         Manifest.permission.ACCESS_COARSE_LOCATION
-    ) != PackageManager.PERMISSION_GRANTED
+    ) == PackageManager.PERMISSION_GRANTED
 }
 
 fun getApplicationPermission(): List<String> {
@@ -48,5 +48,8 @@ fun getApplicationPermission(): List<String> {
         )
     }
 
-    return emptyList()
+    return listOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+    )
 }

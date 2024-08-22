@@ -1,12 +1,15 @@
 package com.lelestacia.lagidimana.ui.screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -14,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.LatLng
-import com.lelestacia.lagidimana.ui.Location
+import com.lelestacia.lagidimana.domain.model.Location
 import com.lelestacia.lagidimana.ui.theme.LagiDimanaTheme
 import com.parassidhu.simpledate.toTimeStandardIn12HoursWithoutSeconds
 import java.util.Date
@@ -28,9 +31,17 @@ fun LocationHistoryItem(
         withStyle(
             MaterialTheme.typography.titleMedium.toSpanStyle()
         ) {
-            append("Koordinat: ")
+            if (location.address.isNullOrBlank()) {
+                append("Koordinat: ")
+            } else {
+                append("Lokasi: ")
+            }
         }
-        append("${location.location.latitude}, ${location.location.longitude}")
+        if (location.address.isNullOrBlank()) {
+            append("${location.location.latitude}, ${location.location.longitude}")
+        } else {
+            append(location.address)
+        }
     }
 
     val timeText = buildAnnotatedString {
@@ -42,13 +53,33 @@ fun LocationHistoryItem(
         append(Date(location.timeStamp).toTimeStandardIn12HoursWithoutSeconds())
     }
 
-    Column(
-        modifier = modifier
+    val connectionStatusText = buildAnnotatedString {
+        withStyle(
+            MaterialTheme.typography.titleMedium.toSpanStyle()
+        ) {
+            append("Status: ")
+        }
+        if(location.isOnline) {
+            append("Terhubung ke internet")
+        } else {
+            append("Tidak terhubung ke internet")
+        }
+    }
+
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 4.dp)
     ) {
-        Text(text = coordinateText)
-        Text(text = timeText)
+        Column(
+            modifier = modifier.weight(1f)
+        ) {
+            Text(text = timeText)
+            Text(text = coordinateText)
+            Text(text = connectionStatusText)
+        }
     }
 }
 

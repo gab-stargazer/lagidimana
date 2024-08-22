@@ -14,12 +14,14 @@ kotlin-ksp = "2.0.10-1.0.24"
 koin-bom = "4.0.0-RC1"
 paging = "3.3.2"
 room = "2.6.1"
+protoliteWellKnownTypes = "18.0.0"
 
 [libraries]
 #   Accompanist
 accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version = "0.35.1-alpha" }
 
 #   Compose
+compose-extended-icon = { module = "androidx.compose.material:material-icons-extended" }
 compose-maps = { module = "com.google.maps.android:maps-compose", version.ref = "compose-maps" }
 compose-maps-util = { module = "com.google.maps.android:maps-compose-utils", version.ref = "compose-maps" }
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
@@ -27,6 +29,7 @@ compose-paging = { module = "androidx.paging:paging-compose", version.ref = "pag
 
 #   Google
 google-maps = { module = "com.google.android.gms:play-services-maps", version = "19.0.0" }
+google-geocode = { module = "com.google.maps:google-maps-services", version = "2.2.0" }
 
 #   Koin
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
@@ -38,6 +41,7 @@ koin-test = { module = "io.insert-koin:koin-test" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
 
 #   Kotlin
+kotlin-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
 kotlin-serializable = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
 
 #   Paging

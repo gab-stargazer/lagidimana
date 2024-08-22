@@ -11,11 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import androidx.paging.compose.LazyPagingItems
-import com.lelestacia.lagidimana.ui.Location
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.lelestacia.lagidimana.domain.viewmodel.HistoryViewModel
+import com.lelestacia.lagidimana.domain.model.Location
+import com.lelestacia.lagidimana.ui.util.ChildRoute.History
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LocationHistoryScreen(
+private fun LocationHistoryScreen(
     histories: LazyPagingItems<Location>,
     modifier: Modifier = Modifier
 ) {
@@ -45,5 +51,13 @@ fun LocationHistoryScreen(
                 }
             }
         }
+    }
+}
+
+fun NavGraphBuilder.locationHistoryScreen() {
+    composable(History.route) {
+        val vm = koinViewModel<HistoryViewModel>()
+        val history = vm.locationHistory.collectAsLazyPagingItems()
+        LocationHistoryScreen(histories = history, modifier = Modifier.fillMaxSize())
     }
 }

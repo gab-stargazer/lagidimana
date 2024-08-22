@@ -46,6 +46,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
 //    composeOptions {
@@ -85,7 +86,7 @@ dependencies {
     implementation(libs.accompanist.permission)
 
     //  Compose
-
+    implementation(libs.compose.extended.icon)
     implementation(libs.compose.navigation)
 
     //  Koin
@@ -96,12 +97,14 @@ dependencies {
     implementation(libs.koin.work.manager)
 
     //  Kotlin
+    implementation(libs.kotlin.immutable)
     implementation(libs.kotlin.serializable)
 
     //  Maps
     implementation(libs.compose.maps)
     implementation(libs.compose.maps.util)
     implementation(libs.play.gms.location)
+    implementation(libs.google.geocode)
 
     //  Paging
     implementation(libs.paging)

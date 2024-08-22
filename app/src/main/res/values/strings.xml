@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LagiDimana</string>
+    <string name="all_permission_required">Seluruh Izin Aplikasi yang diminta diperlukan untuk menggunakan aplikasi ini</string>
+
+    <!--Navigation Menu-->
+    <string name="menu_maps">Peta</string>
+    <string name="menu_history">Riwayat Perjalanan</string>
 </resources>
