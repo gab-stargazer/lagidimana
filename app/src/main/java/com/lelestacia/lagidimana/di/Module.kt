@@ -1,7 +1,6 @@
 package com.lelestacia.lagidimana.di
 
 import androidx.room.Room
-import com.google.maps.GeoApiContext
 import com.lelestacia.lagidimana.BuildConfig
 import com.lelestacia.lagidimana.data.db.LocationDB
 import com.lelestacia.lagidimana.data.db.dao.LocationDao
@@ -33,11 +32,8 @@ val module = module {
         get<LocationDB>().getLocationDao()
     }
 
-    single<GeoApiContext>(createdAtStart = true) {
-        GeoApiContext.Builder()
-            .apiKey(BuildConfig.GOOGLE_MAPS_API_KEY)
-            .maxRetries(5)
-            .build()
+    single<String>{
+        BuildConfig.GOOGLE_MAPS_API_KEY
     }
 
     singleOf(::ConnectionManager) {

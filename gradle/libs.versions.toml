@@ -15,6 +15,7 @@ kotlin-ksp = "2.0.10-1.0.24"
 koin-bom = "4.0.0-RC1"
 paging = "3.3.2"
 room = "2.6.1"
+jetbrainsKotlinJvm = "2.0.10"
 
 [libraries]
 #   Accompanist
@@ -38,6 +39,7 @@ google-geocode = { module = "com.google.maps:google-maps-services", version = "2
 #   Koin
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-android = { module = "io.insert-koin:koin-android" }
+koin-core = { module = "io.insert-koin:koin-core" }
 koin-work-manager = { module = "io.insert-koin:koin-androidx-workmanager" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-logger = { module = "io.insert-koin:koin-logger-slf4j" }
@@ -80,14 +82,21 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 [plugins]
+#   Android
 android-application = { id = "com.android.application", version.ref = "agp" }
+
+#   Jetbrains
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 #   Google
 google-secret = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version = "2.0.1" }
 
+#   Kotlin
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 kotlin-serializable = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.10" }
+
+#   Room
 room = { id = "androidx.room", version.ref = "room" }
 

@@ -66,6 +66,9 @@ android {
 
 dependencies {
 
+    //  Geo API Module
+    implementation(projects.geoApi)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -108,7 +111,6 @@ dependencies {
     implementation(libs.compose.maps)
     implementation(libs.compose.maps.util)
     implementation(libs.play.gms.location)
-    implementation(libs.google.geocode)
 
     //  Paging
     implementation(libs.paging)
