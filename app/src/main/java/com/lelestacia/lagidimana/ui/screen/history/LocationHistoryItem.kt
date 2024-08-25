@@ -1,4 +1,4 @@
-package com.lelestacia.lagidimana.ui.screen
+package com.lelestacia.lagidimana.ui.screen.history
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,12 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.LatLng
+import com.lelestacia.lagidimana.R
 import com.lelestacia.lagidimana.domain.model.Location
 import com.lelestacia.lagidimana.ui.theme.LagiDimanaTheme
 import com.parassidhu.simpledate.toTimeStandardIn12HoursWithoutSeconds
@@ -32,9 +34,9 @@ fun LocationHistoryItem(
             MaterialTheme.typography.titleMedium.toSpanStyle()
         ) {
             if (location.address.isNullOrBlank()) {
-                append("Koordinat: ")
+                append(stringResource(R.string.tv_coordinate))
             } else {
-                append("Lokasi: ")
+                append(stringResource(R.string.tv_location))
             }
         }
         if (location.address.isNullOrBlank()) {
@@ -48,7 +50,7 @@ fun LocationHistoryItem(
         withStyle(
             MaterialTheme.typography.titleMedium.toSpanStyle()
         ) {
-            append("Waktu: ")
+            append(stringResource(R.string.tv_time))
         }
         append(Date(location.timeStamp).toTimeStandardIn12HoursWithoutSeconds())
     }
@@ -57,12 +59,12 @@ fun LocationHistoryItem(
         withStyle(
             MaterialTheme.typography.titleMedium.toSpanStyle()
         ) {
-            append("Status: ")
+            append(stringResource(R.string.tv_status))
         }
         if(location.isOnline) {
-            append("Terhubung ke internet")
+            append(stringResource(R.string.tv_connected_to_internet))
         } else {
-            append("Tidak terhubung ke internet")
+            append(stringResource(R.string.tv_not_connected_to_internet))
         }
     }
 

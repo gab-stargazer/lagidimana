@@ -5,4 +5,21 @@
     <!--Navigation Menu-->
     <string name="menu_maps">Peta</string>
     <string name="menu_history">Riwayat Perjalanan</string>
+
+    <!--Map-->
+    <string name="marker_cluster_title">%1$d dikunjungi</string>
+
+    <!--Message-->
+    <string name="msg_no_location_history">Tidak ada riwayat lokasi</string>
+    <string name="msg_noti_title">Tracking your location</string>
+    <string name="msg_noti_description">Your location is being tracked in real-time with around 5 minute interval</string>
+
+    <!--Text View-->
+    <string name="tv_location">"Lokasi: "</string>
+    <string name="tv_coordinate">"Koordinat: "</string>
+    <string name="tv_time">"Waktu: "</string>
+    <string name="tv_status">"Status: "</string>
+    <string name="tv_connected_to_internet">Terhubung ke internet</string>
+    <string name="tv_not_connected_to_internet">Tidak terhubung ke internet</string>
+    <string name="tv_no_location_history">Tidak ada riwayat lokasi</string>
 </resources>

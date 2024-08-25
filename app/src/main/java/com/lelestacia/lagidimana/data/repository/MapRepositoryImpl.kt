@@ -89,7 +89,7 @@ class MapRepositoryImpl(
                 message = Message("Current location updated to $newLocation on $formattedTimeStamp")
             )
 
-            locationDao.upsertLocation(newLocation.toEntity())
+            locationDao.insertLocation(newLocation.toEntity())
         }
     }
 

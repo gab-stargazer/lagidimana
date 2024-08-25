@@ -17,12 +17,16 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.lelestacia.lagidimana.R
-import com.lelestacia.lagidimana.domain.repository.MapRepository
 import com.lelestacia.lagidimana.domain.model.Location
+import com.lelestacia.lagidimana.domain.repository.MapRepository
 import com.parassidhu.simpledate.toTimeStandardWithoutSeconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.util.Date
@@ -33,33 +37,6 @@ class LocationManager : Service() {
 
     private val repository: MapRepository by inject()
     private val logger: Logger by inject()
-
-//    private val locationCallback = object : LocationCallback() {
-//
-//        override fun onLocationResult(result: LocationResult) {
-//            result.lastLocation?.let { location ->
-//                val currentLocation = Location(
-//                    location = LatLng(location.latitude, location.longitude),
-//                    timeStamp = Date().time
-//                )
-//
-//                logger.debug(
-//                    ClassName(this@LocationManager::class.simpleName.orEmpty()),
-//                    Message(
-//                        "location updated to ${currentLocation.location} on ${
-//                            Date(
-//                                currentLocation.timeStamp
-//                            ).toTimeStandardWithoutSeconds()
-//                        }"
-//                    )
-//                )
-//
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    repository.insertLiveLocation(currentLocation)
-//                }
-//            }
-//        }
-//    }
 
     override fun onCreate() {
         super.onCreate()
@@ -103,8 +80,8 @@ class LocationManager : Service() {
         }
 
         val notification: Notification = NotificationCompat.Builder(this, "location_channel")
-            .setContentTitle("Tracking Location")
-            .setContentText("Your location is being tracked in real-time with 5 minute interval")
+            .setContentTitle(getString(R.string.msg_noti_title))
+            .setContentText(getString(R.string.msg_noti_description))
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_location_on_24)
             .build()
@@ -129,62 +106,91 @@ class LocationManager : Service() {
         return null
     }
 
-    private fun startLocationTracking() = with(logger) {
-        if (!checkLocationPermission()) {
-            warning(
-                ClassName(this@LocationManager::class.simpleName.orEmpty()),
-                Message("Location Permission Not Granted and service will be stopped")
-            )
-            stopSelf()
-            return@with
-        }
+    private fun startLocationTracking() =
+        with(logger) {
+            if (!checkLocationPermission()) {
+                warning(
+                    ClassName(this@LocationManager::class.simpleName.orEmpty()),
+                    Message("Location Permission Not Granted and service will be stopped")
+                )
+                stopSelf()
+                return@with
+            }
 
-        fusedLocationProviderClient.requestLocationUpdates(
-            LocationRequest
-                .Builder(Priority.PRIORITY_HIGH_ACCURACY, 300000)
-                .setMinUpdateIntervalMillis(300000)
-                .setIntervalMillis(300000)
-                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                .build(),
-            object : LocationCallback() {
+            CoroutineScope(Dispatchers.IO).launch {
+                val lastLocation = repository.getLiveLocation().firstOrNull()
 
-                override fun onLocationResult(result: LocationResult) {
-                    result.lastLocation?.let { location ->
-                        val currentLocation = Location(
-                            location = LatLng(location.latitude, location.longitude),
-                            timeStamp = Date().time
+                if (lastLocation == null) {
+                    fusedLocationProviderClient.getCurrentLocation(
+                        Priority.PRIORITY_HIGH_ACCURACY,
+                        object : CancellationToken() {
+                            override fun onCanceledRequested(p0: OnTokenCanceledListener): CancellationToken {
+                                return CancellationTokenSource().token
+                            }
+
+                            override fun isCancellationRequested(): Boolean {
+                                return false
+                            }
+                        }
+                    ).addOnSuccessListener {
+                        launch {
+                            repository.insertLiveLocation(
+                                Location(
+                                    location = LatLng(it.latitude, it.longitude),
+                                    timeStamp = Date().time
+                                )
+                            )
+                        }
+                    }.addOnFailureListener {
+                        error(
+                            ClassName(this@LocationManager::class.simpleName.orEmpty()),
+                            Message(it.stackTraceToString())
                         )
+                    }
+                }
+            }
+
+            fusedLocationProviderClient.requestLocationUpdates(
+                LocationRequest
+                    .Builder(Priority.PRIORITY_HIGH_ACCURACY, 300000)
+                    .setMinUpdateIntervalMillis(299000)
+                    .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                    .build(),
+                object : LocationCallback() {
+
+                    override fun onLocationResult(result: LocationResult) {
+                        result.lastLocation?.let { location ->
+                            val currentLocation = Location(
+                                location = LatLng(location.latitude, location.longitude),
+                                timeStamp = Date().time
+                            )
+
+                            debug(
+                                ClassName(this@LocationManager::class.simpleName.orEmpty()),
+                                Message(
+                                    "location updated to ${currentLocation.location} on ${
+                                        Date(
+                                            currentLocation.timeStamp
+                                        ).toTimeStandardWithoutSeconds()
+                                    }"
+                                )
+                            )
+
+                            CoroutineScope(Dispatchers.IO).launch {
+                                repository.insertLiveLocation(currentLocation)
+                            }
+                            return
+                        }
 
                         debug(
                             ClassName(this@LocationManager::class.simpleName.orEmpty()),
-                            Message(
-                                "location updated to ${currentLocation.location} on ${
-                                    Date(
-                                        currentLocation.timeStamp
-                                    ).toTimeStandardWithoutSeconds()
-                                }"
-                            )
+                            Message("location is not found")
                         )
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            repository.insertLiveLocation(currentLocation)
-                        }
-                        return
                     }
-
-                    debug(
-                        ClassName(this@LocationManager::class.simpleName.orEmpty()),
-                        Message("location is not found")
-                    )
-                }
-            },
-            Looper.getMainLooper()
-        )
-    }
-
-//    private fun stopLocationTracking() {
-//        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-//    }
+                },
+                Looper.getMainLooper()
+            )
+        }
 
     companion object {
         var isRunning = false

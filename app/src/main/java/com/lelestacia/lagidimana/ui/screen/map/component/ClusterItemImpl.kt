@@ -1,4 +1,4 @@
-package com.lelestacia.lagidimana.ui.screen.map
+package com.lelestacia.lagidimana.ui.screen.map.component
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem

@@ -89,6 +89,10 @@ dependencies {
     implementation(libs.compose.extended.icon)
     implementation(libs.compose.navigation)
 
+    //  Coroutine
+    implementation(libs.coroutine)
+    implementation(libs.coroutine.test)
+
     //  Koin
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.android)
@@ -115,6 +119,7 @@ dependencies {
     implementation(libs.room)
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
+    androidTestImplementation(libs.room.test)
     ksp(libs.room.compiler)
 
     //  Simple Date

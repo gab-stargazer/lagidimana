@@ -27,6 +27,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.lelestacia.lagidimana.ui.mainNavigation
+import com.lelestacia.lagidimana.ui.screen.history.locationHistoryScreen
+import com.lelestacia.lagidimana.ui.screen.map.mapScreen
 import com.lelestacia.lagidimana.ui.theme.LagiDimanaTheme
 import com.lelestacia.lagidimana.ui.util.ChildRoute.Map
 import com.lelestacia.lagidimana.ui.util.LocalChildNavigator

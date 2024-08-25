@@ -2,7 +2,7 @@ package com.lelestacia.lagidimana.domain.model
 
 import com.google.android.gms.maps.model.LatLng
 import com.lelestacia.lagidimana.data.db.model.LocationEntity
-import com.lelestacia.lagidimana.ui.screen.map.ClusterItemImpl
+import com.lelestacia.lagidimana.ui.screen.map.component.ClusterItemImpl
 
 data class Location(
     val location: LatLng,

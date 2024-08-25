@@ -1,4 +1,4 @@
-package com.lelestacia.lagidimana.ui.screen
+package com.lelestacia.lagidimana.ui.screen.history
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
@@ -9,14 +9,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.lelestacia.lagidimana.domain.viewmodel.HistoryViewModel
+import com.lelestacia.lagidimana.R
 import com.lelestacia.lagidimana.domain.model.Location
+import com.lelestacia.lagidimana.domain.viewmodel.HistoryViewModel
 import com.lelestacia.lagidimana.ui.util.ChildRoute.History
 import org.koin.androidx.compose.koinViewModel
 
@@ -25,7 +28,10 @@ private fun LocationHistoryScreen(
     histories: LazyPagingItems<Location>,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
         AnimatedContent(
             targetState = (histories.itemCount > 0),
             label = "Content Animation"
@@ -47,7 +53,7 @@ private fun LocationHistoryScreen(
                 }
 
                 false -> {
-                    Text(text = "Tidak ada riwayat lokasi")
+                    Text(text = stringResource(R.string.tv_no_location_history))
                 }
             }
         }
