@@ -18,9 +18,9 @@ Lagidimana is an Android application developed with Kotlin that tracks the locat
 
 ## Screenshots
 
-| No Permission Screen | Location Tracking | Settings |
+| No Permission Screen | Map Screen | Location History Screen |
 |----------------------|-------------------|----------|
-| ![No Permission Screen](https://github.com/gab-stargazer/lagidimana/blob/master/image/no_permission_screen.png) | ![Location Tracking](https://github.com/gab-stargazer/lagidimana/blob/master/image/map_screen.png) | ![Settings](https://github.com/gab-stargazer/lagidimana/blob/master/image/location_history_screen.png) |
+| ![No Permission Screen](https://github.com/gab-stargazer/lagidimana/blob/master/image/no_permission_screen.png) | ![Map Screen](https://github.com/gab-stargazer/lagidimana/blob/master/image/map_screen.png) | ![Location History Screen](https://github.com/gab-stargazer/lagidimana/blob/master/image/location_history_screen.png) |
 
 ### All in One Screen for large device
 ![All In One Screen](https://github.com/gab-stargazer/lagidimana/blob/master/image/map_and_history_screen.png)
