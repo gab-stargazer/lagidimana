@@ -1,9 +1,7 @@
 package com.lelestacia.lagidimana.ui.screen
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -34,6 +32,10 @@ import com.lelestacia.lagidimana.ui.util.ChildRoute.Map
 import com.lelestacia.lagidimana.ui.util.LocalChildNavigator
 import com.lelestacia.lagidimana.ui.util.MainRoute.HasPermission
 import com.lelestacia.lagidimana.util.LocationManager
+import com.lelestacia.lagidimana.util.Logger
+import com.lelestacia.lagidimana.util.Message
+import com.lelestacia.lagidimana.util.launchWorkManager
+import org.koin.compose.koinInject
 
 @Composable
 private fun MainScreen(modifier: Modifier = Modifier) {
@@ -105,7 +107,11 @@ private fun MainScreen(modifier: Modifier = Modifier) {
 fun NavGraphBuilder.mainScreen() {
     composable<HasPermission> {
         val context = LocalContext.current
+        val logger = koinInject<Logger>()
+
         LaunchedEffect(key1 = Unit) {
+            context.launchWorkManager()
+
             if (!LocationManager.isRunning) {
                 val serviceIntent = Intent(context, LocationManager::class.java)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -114,8 +120,9 @@ fun NavGraphBuilder.mainScreen() {
                     context.startService(serviceIntent)
                 }
             } else {
-                Log.w(TAG, "mainScreen: SERVICE ALREADY RUNNING" )
-
+                logger.warning(
+                    message = Message("SERVICE ALREADY RUNNING")
+                )
             }
         }
 

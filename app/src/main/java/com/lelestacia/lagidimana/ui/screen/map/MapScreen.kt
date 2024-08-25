@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -42,7 +43,7 @@ private fun MapScreen(
     LaunchedEffect(last25Location) {
         last25Location.firstOrNull()?.let { lastLocation ->
             cameraPositionState.animate(
-                CameraUpdateFactory.newLatLng(lastLocation.location)
+                CameraUpdateFactory.newLatLngZoom(lastLocation.location, 15F)
             )
         }
     }
@@ -56,13 +57,13 @@ private fun MapScreen(
         ),
         properties = MapProperties(
             mapStyleOptions = MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style),
-            minZoomPreference = 10F
+            minZoomPreference = 5F
         ),
         onMapLoaded = {
             scope.launch {
                 last25Location.firstOrNull()?.let { lastLocation ->
                     cameraPositionState.animate(
-                        CameraUpdateFactory.newLatLng(lastLocation.location)
+                        CameraUpdateFactory.newLatLngZoom(lastLocation.location, 15F)
                     )
                 }
             }
@@ -73,7 +74,7 @@ private fun MapScreen(
             items = last25Location.mapIndexed { index, location ->
                 if (index == 0) {
                     location.toClusterItem(
-                        title = "Last Known Location",
+                        title = stringResource(R.string.tv_last_known_location),
                         snippet = location.address
                     )
                 } else {

@@ -11,8 +11,10 @@
 
     <!--Message-->
     <string name="msg_no_location_history">Tidak ada riwayat lokasi</string>
-    <string name="msg_noti_title">Tracking your location</string>
-    <string name="msg_noti_description">Your location is being tracked in real-time with around 5 minute interval</string>
+    <string name="msg_notification_location_title">Tracking your location</string>
+    <string name="msg_notification_location_description">Your location is being tracked in real-time with around 5 minute interval</string>
+    <string name="msg_notification_history_deleted_title">Location History Deleted</string>
+    <string name="msg_notification_history_deleted_description">Your Location History has been cleaned up</string>
 
     <!--Text View-->
     <string name="tv_location">"Lokasi: "</string>
@@ -22,4 +24,5 @@
     <string name="tv_connected_to_internet">Terhubung ke internet</string>
     <string name="tv_not_connected_to_internet">Tidak terhubung ke internet</string>
     <string name="tv_no_location_history">Tidak ada riwayat lokasi</string>
+    <string name="tv_last_known_location">Last Known Location</string>
 </resources>

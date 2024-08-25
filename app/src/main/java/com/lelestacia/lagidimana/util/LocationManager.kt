@@ -67,11 +67,11 @@ class LocationManager : Service() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                "location_channel",
-                "Location Service",
+                "main_channel",
+                "App Channel",
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = "Channel for location tracking"
+                description = "Channel for application notification"
             }
 
             val notificationManager: NotificationManager =
@@ -79,9 +79,9 @@ class LocationManager : Service() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val notification: Notification = NotificationCompat.Builder(this, "location_channel")
-            .setContentTitle(getString(R.string.msg_noti_title))
-            .setContentText(getString(R.string.msg_noti_description))
+        val notification: Notification = NotificationCompat.Builder(this, "main_channel")
+            .setContentTitle(getString(R.string.msg_notification_location_title))
+            .setContentText(getString(R.string.msg_notification_location_description))
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_location_on_24)
             .build()

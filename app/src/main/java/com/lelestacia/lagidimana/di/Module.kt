@@ -10,8 +10,10 @@ import com.lelestacia.lagidimana.domain.repository.MapRepository
 import com.lelestacia.lagidimana.domain.viewmodel.HistoryViewModel
 import com.lelestacia.lagidimana.domain.viewmodel.MapViewModel
 import com.lelestacia.lagidimana.util.ConnectionManager
+import com.lelestacia.lagidimana.util.DbCleanerWorkManager
 import com.lelestacia.lagidimana.util.Logger
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.core.module.dsl.binds
 import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.singleOf
@@ -53,4 +55,6 @@ val module = module {
 
     viewModelOf(::HistoryViewModel)
     viewModelOf(::MapViewModel)
+
+    workerOf(::DbCleanerWorkManager)
 }
