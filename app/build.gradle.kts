@@ -49,10 +49,6 @@ android {
         buildConfig = true
     }
 
-//    composeOptions {
-//        kotlinCompilerExtensionVersion = "1.5.1"
-//    }
-
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -89,6 +85,7 @@ dependencies {
     implementation(libs.accompanist.permission)
 
     //  Compose
+    implementation(libs.compose.adaptive)
     implementation(libs.compose.extended.icon)
     implementation(libs.compose.navigation)
 
@@ -125,5 +122,5 @@ dependencies {
     ksp(libs.room.compiler)
 
     //  Simple Date
-    implementation ("com.github.sidhuparas:SimpleDate:2.1.0")
+    implementation (libs.simple.date)
 }

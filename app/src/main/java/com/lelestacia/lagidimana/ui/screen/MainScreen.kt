@@ -3,6 +3,8 @@ package com.lelestacia.lagidimana.ui.screen
 import android.content.Intent
 import android.os.Build
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -10,6 +12,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -19,13 +22,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.window.core.layout.WindowWidthSizeClass
+import com.lelestacia.lagidimana.domain.viewmodel.HistoryViewModel
+import com.lelestacia.lagidimana.domain.viewmodel.MapViewModel
 import com.lelestacia.lagidimana.ui.mainNavigation
+import com.lelestacia.lagidimana.ui.screen.history.LocationHistoryScreen
 import com.lelestacia.lagidimana.ui.screen.history.locationHistoryScreen
+import com.lelestacia.lagidimana.ui.screen.map.MapScreen
 import com.lelestacia.lagidimana.ui.screen.map.mapScreen
 import com.lelestacia.lagidimana.ui.theme.LagiDimanaTheme
 import com.lelestacia.lagidimana.ui.util.ChildRoute.Map
@@ -35,6 +45,7 @@ import com.lelestacia.lagidimana.util.LocationManager
 import com.lelestacia.lagidimana.util.Logger
 import com.lelestacia.lagidimana.util.Message
 import com.lelestacia.lagidimana.util.launchWorkManager
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 @Composable
@@ -104,6 +115,32 @@ private fun MainScreen(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+private fun ExpandedMainScreen(modifier: Modifier = Modifier) {
+    val mapViewModel = koinViewModel<MapViewModel>()
+    val historyViewModel = koinViewModel<HistoryViewModel>()
+
+    val last25Location by mapViewModel.last25Location.collectAsStateWithLifecycle()
+    val locationPaging = historyViewModel.locationHistory.collectAsLazyPagingItems()
+
+    Row(
+        modifier = modifier
+    ) {
+        MapScreen(
+            last25Location = last25Location, modifier = Modifier
+                .fillMaxHeight()
+                .weight(3f)
+        )
+
+        LocationHistoryScreen(
+            histories = locationPaging,
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(2f)
+        )
+    }
+}
+
 fun NavGraphBuilder.mainScreen() {
     composable<HasPermission> {
         val context = LocalContext.current
@@ -126,7 +163,12 @@ fun NavGraphBuilder.mainScreen() {
             }
         }
 
-        MainScreen()
+        val currentWindowSize = currentWindowAdaptiveInfo().windowSizeClass
+        if (currentWindowSize.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) {
+            ExpandedMainScreen()
+        } else {
+            MainScreen()
+        }
     }
 }
 

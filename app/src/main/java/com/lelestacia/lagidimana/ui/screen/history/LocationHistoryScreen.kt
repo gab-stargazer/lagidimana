@@ -26,7 +26,7 @@ import com.lelestacia.lagidimana.ui.util.ChildRoute.History
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-private fun LocationHistoryScreen(
+fun LocationHistoryScreen(
     histories: LazyPagingItems<Location>,
     modifier: Modifier = Modifier
 ) {

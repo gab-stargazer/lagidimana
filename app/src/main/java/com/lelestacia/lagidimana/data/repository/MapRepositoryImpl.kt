@@ -23,7 +23,6 @@ import java.util.Date
 
 class MapRepositoryImpl(
     private val locationDao: LocationDao,
-//    private val geocoder: GeoApiContext,
     private val geoApiService: GeoApiService,
     private val connectionManager: ConnectionManager,
     private val logger: Logger

@@ -32,7 +32,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
-private fun MapScreen(
+fun MapScreen(
     last25Location: List<Location>,
     modifier: Modifier = Modifier
 ) {

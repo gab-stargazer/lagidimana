@@ -16,12 +16,14 @@ koin-bom = "4.0.0-RC1"
 paging = "3.3.2"
 room = "2.6.1"
 jetbrainsKotlinJvm = "2.0.10"
+simple-date = "2.1.0"
 
 [libraries]
 #   Accompanist
 accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version = "0.35.1-alpha" }
 
 #   Compose
+compose-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version = "1.0.0-rc01" }
 compose-extended-icon = { module = "androidx.compose.material:material-icons-extended" }
 compose-maps = { module = "com.google.maps.android:maps-compose", version.ref = "compose-maps" }
 compose-maps-util = { module = "com.google.maps.android:maps-compose-utils", version.ref = "compose-maps" }
@@ -33,7 +35,6 @@ coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.
 coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine" }
 
 #   Google
-google-maps = { module = "com.google.android.gms:play-services-maps", version = "19.0.0" }
 google-geocode = { module = "com.google.maps:google-maps-services", version = "2.2.0" }
 
 #   Koin
@@ -43,8 +44,6 @@ koin-core = { module = "io.insert-koin:koin-core" }
 koin-work-manager = { module = "io.insert-koin:koin-androidx-workmanager" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-logger = { module = "io.insert-koin:koin-logger-slf4j" }
-koin-test = { module = "io.insert-koin:koin-test" }
-koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4" }
 
 #   Kotlin
 kotlin-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
@@ -55,7 +54,6 @@ paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 paging-test = { module = "androidx.paging:paging-common", version.ref = "paging" }
 
 #   Gplay
-play-gms = { module = "com.google.android.gms:play-services", version = "12.0.1" }
 play-gms-location = { module = "com.google.android.gms:play-services-location", version = "21.3.0" }
 
 #   Room
@@ -65,6 +63,8 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 room-test = { module = "androidx.room:room-testing", version.ref = "room" }
 
+#   Simple Date
+simple-date = { module = "com.github.sidhuparas:SimpleDate", version.ref = "simple-date" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
