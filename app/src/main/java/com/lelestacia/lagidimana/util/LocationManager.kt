@@ -153,7 +153,9 @@ class LocationManager : Service() {
             fusedLocationProviderClient.requestLocationUpdates(
                 LocationRequest
                     .Builder(Priority.PRIORITY_HIGH_ACCURACY, 300000)
-                    .setMinUpdateIntervalMillis(299000)
+                    .setMinUpdateIntervalMillis(300000)
+                    .setIntervalMillis(300000)
+                    .setWaitForAccurateLocation(true)
                     .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                     .build(),
                 object : LocationCallback() {
