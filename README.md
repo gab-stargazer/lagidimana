@@ -29,7 +29,7 @@ Lagidimana is an Android application developed with Kotlin that tracks the locat
 
 You can download the APK file for the Employee Location Tracker app using the link below:
 
-[Download APK](https://drive.google.com/file/d/1LQ81-Cm9Q1VCfTPiTP-KugphKJSoZI6v/view?usp=drive_link)
+[Download APK](https://drive.google.com/file/d/1N4vVk0cQzqCDzjYNMJHtcK_IkijcXs2u/view?usp=sharing)
 
 ## Prerequisites
 
